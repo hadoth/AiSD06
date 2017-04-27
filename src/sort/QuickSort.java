@@ -33,8 +33,12 @@ public class QuickSort<T> implements ListSorter<T> {
 
     private void quickSort(List<T> list, int startIndex, int endIndex){
         if (startIndex < endIndex){
+            if (endIndex - startIndex == 1){
+                if (comparator.compare(list.get(startIndex), list.get(endIndex)) > 0) this.swap(list, startIndex, endIndex);
+                return;
+            }
             int partitionIndex = this.partition(list, startIndex, endIndex);
-            this.assertPartition(list, partitionIndex);
+//            this.assertPartition(list, partitionIndex);
             this.quickSort(list, startIndex, partitionIndex-1);
             this.quickSort(list, partitionIndex+1, endIndex);
         }
