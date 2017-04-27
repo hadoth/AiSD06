@@ -21,7 +21,7 @@ public class QuickSort<T> implements ListSorter<T> {
 
     @Override
     public void setComparator(Comparator<T> comparator) {
-
+        this.comparator = comparator;
     }
 
     @Override
