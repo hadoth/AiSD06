@@ -26,6 +26,6 @@ public class QuickSort<T> implements ListSorter<T> {
 
     @Override
     public String getName() {
-        return null;
+        return "Quick Sort";
     }
 }
