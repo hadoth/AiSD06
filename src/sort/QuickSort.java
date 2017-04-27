@@ -2,6 +2,7 @@ package sort;
 
 import utils.comparator.Comparator;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -33,13 +34,17 @@ public class QuickSort<T> implements ListSorter<T> {
     private void quickSort(List<T> list, int startIndex, int endIndex){
         if (startIndex < endIndex){
             int partitionIndex = this.partition(list, startIndex, endIndex);
+            for (int i = 0; i < partitionIndex; i++) if (comparator.compare(list.get(i), list.get(partitionIndex))>0)
+                throw new AssertionError(list.get(i) + " greater than or equal to " + list.get(partitionIndex));
+            for (int i = partitionIndex + 1; i < list.size(); i++) if (comparator.compare(list.get(partitionIndex), list.get(i))>0)
+                throw new AssertionError(list.get(partitionIndex) + " is less than " + list.get(i) + "(" + comparator.compare(list.get(partitionIndex), list.get(i)) + ")");
             this.quickSort(list, startIndex, partitionIndex-1);
             this.quickSort(list, partitionIndex+1, endIndex);
         }
     }
 
     private int partition(List<T> list, int startIndex, int endIndex){
-        T elementToSort = list.get(endIndex - 1);
+        T elementToSort = list.get(endIndex);
         int start = startIndex;
         int end = endIndex-1;
         while (start < end){
@@ -47,13 +52,15 @@ public class QuickSort<T> implements ListSorter<T> {
                 start++;
                 continue;
             }
-            if (comparator.compare(elementToSort, list.get(end)) >= 0){
-                end++;
+            if (comparator.compare(elementToSort, list.get(end)) <= 0){
+                end--;
                 continue;
             }
             this.swap(list, start, end);
+            System.out.println(Arrays.toString(list.toArray()) + "["+ startIndex + "; " + endIndex +"]");
+            start++;
         }
-        this.swap(list, endIndex, start);
+        if (this.comparator.compare(list.get(start), elementToSort) > 0) this.swap(list, endIndex, start);
         return start;
     }
 
