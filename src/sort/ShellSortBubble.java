@@ -52,7 +52,7 @@ public class ShellSortBubble<T> implements ListSorter<T> {
 
     @Override
     public String getName() {
-        return "Shell Sort";
+        return "Shell Sort (Bubble)";
     }
 
     private static <T> void swap(List<T> list, int left, int right){
