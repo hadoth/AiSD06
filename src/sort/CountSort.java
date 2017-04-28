@@ -25,11 +25,11 @@ public class CountSort implements ListSorter<Integer> {
 
     @Override
     public void setComparator(Comparator<Integer> comparator) {
-
+        this.comparator = comparator;
     }
 
     @Override
     public String getName() {
-        return null;
+        return "Count Sort (Integer)";
     }
 }
