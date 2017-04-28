@@ -15,12 +15,25 @@ public class CountSort implements ListSorter<Integer> {
     public CountSort(Comparator<Integer> comparator, int maxInt){
         this.comparator = comparator;
         this.lastIndexList = new int[maxInt];
-        this.lastIndexList = new int[maxInt];
+        this.countList = new int[maxInt];
     }
 
     @Override
     public List<Integer> sort(List<Integer> list) {
-        return null;
+        for (int i = 0; i < list.size(); i++){
+            int number = list.get(i);
+            this.countList[number]++;
+            this.lastIndexList[number] = i;
+        }
+
+        for (int i = 0; i < lastIndexList.length; i++){
+            int numberIndex = this.lastIndexList[i];
+            while (this.countList[i] > 0){
+                list.set(numberIndex, i);
+                this.countList[i]--;
+            }
+        }
+        return list;
     }
 
     @Override
