@@ -14,8 +14,8 @@ public class CountSort implements ListSorter<Integer> {
 
     public CountSort(Comparator<Integer> comparator, int maxInt){
         this.comparator = comparator;
-        this.lastIndexList = new int[maxInt];
-        this.countList = new int[maxInt];
+        this.lastIndexList = new int[maxInt+1];
+        this.countList = new int[maxInt+1];
     }
 
     @Override
@@ -26,11 +26,12 @@ public class CountSort implements ListSorter<Integer> {
             this.lastIndexList[number] = i;
         }
 
-        for (int i = 0; i < lastIndexList.length; i++){
-            int numberIndex = this.lastIndexList[i];
-            while (this.countList[i] > 0){
-                list.set(numberIndex, i);
-                this.countList[i]--;
+        int i = list.size() - 1;
+        for (int j = this.countList.length-1; j >=0; j--){
+            while (this.countList[j] > 0){
+                list.set(i, j);
+                this.countList[j]--;
+                i--;
             }
         }
         return list;
