@@ -50,7 +50,7 @@ public class MergeSort<T> implements ListSorter<T> {
     }
 
     private List<T> merge(List<T> leftList, List<T> rightList) {
-        List<T> result = this.emptyCopy(leftList);
+        List<T> result = this.emptyCopy(leftList); //TODO: fix this method to present correct number of swaps;
         int i = 0;
         int j = 0;
         T leftCompared;
