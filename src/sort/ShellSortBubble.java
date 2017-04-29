@@ -15,7 +15,7 @@ public class ShellSortBubble<T> implements ListSorter<T> {
 
     public ShellSortBubble(Comparator<T> comparator){
         this.comparator = comparator;
-        this.strategy = Strategy.PRATT2;
+        this.strategy = Strategy.PRATT;
     }
 
     public ShellSortBubble(Comparator<T> comparator, Strategy strategy){

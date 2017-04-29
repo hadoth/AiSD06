@@ -3,6 +3,7 @@ package bootstrap;
 import sort.*;
 import utils.Benchmark;
 import utils.comparator.NaturalComparator;
+import utils.strategy.Strategy;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,13 @@ public class ListSixExOneTest {
         sorters.add(new SelectSort<>(comparator));
         sorters.add(new InsertSort<>(comparator));
         sorters.add(new ShakerSort<>(comparator));
+        sorters.add(new ShakerSort<>(comparator));
+        sorters.add(new ShellSort<>(comparator));
+        sorters.add(new ShellSort<>(comparator, Strategy.SHELL1));
+        sorters.add(new ShellSort<>(comparator, Strategy.PAPERNOV));
         sorters.add(new ShellSortBubble<>(comparator));
+        sorters.add(new QuickSort<>(comparator));
+        sorters.add(new MergeSort<>(comparator));
 
         Benchmark sorterBenchmark = new Benchmark();
 

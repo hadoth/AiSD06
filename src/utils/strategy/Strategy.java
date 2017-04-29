@@ -29,7 +29,8 @@ public enum Strategy {
                 strategyList.add(nextOne);
                 nextOne = 1;
                 for (int i = 0; i < k; i++) nextOne *=2;
-                nextOne +=1;
+                nextOne += 1;
+                k++;
             }
             return strategyList;
         }
