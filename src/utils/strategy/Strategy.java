@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Karol Pokomeda on 2017-04-27.
  */
 public enum Strategy {
-    DEFAULT{
+    PRATT2("Pratt 2"){
         public <T> ArrayList<Integer> getStrategy(List<T> list){
             ArrayList<Integer> strategyList = new ArrayList<>();
             int nextOne = 1;
@@ -19,5 +19,15 @@ public enum Strategy {
         }
     };
 
+    private String name;
+
+    Strategy(String name){
+        this.name = name;
+    }
+
     public abstract <T> ArrayList<Integer> getStrategy(List<T> list);
+
+    public String getName() {
+        return this.name;
+    }
 }
