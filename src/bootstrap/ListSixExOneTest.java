@@ -34,7 +34,6 @@ public class ListSixExOneTest {
         sorters.add(new SelectSort<>(comparator));
         sorters.add(new InsertSort<>(comparator));
         sorters.add(new ShakerSort<>(comparator));
-        sorters.add(new ShakerSort<>(comparator));
         sorters.add(new ShellSort<>(comparator));
         sorters.add(new ShellSort<>(comparator, Strategy.SHELL1));
         sorters.add(new ShellSort<>(comparator, Strategy.PAPERNOV));
@@ -55,7 +54,6 @@ public class ListSixExOneTest {
                 sorterBenchmark.evaluate(sorter, comparator, singleFilePath);
 
                 System.out.println(sorterBenchmark.report());
-
             }
             System.out.println();
         }
