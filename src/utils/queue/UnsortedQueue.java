@@ -44,11 +44,13 @@ public class UnsortedQueue<T> implements PriorityQueue<T> {
 
     private int findMax(){
         int result = 0;
-        T left = this.internalList.get(0);
+        T max = this.internalList.get(0);
         T right;
         for (int i = 1; i < this.size(); i++){
-            if (this.comparator.compare(left, right = this.internalList.get(i)) >0) result = i;
-            left = right;
+            if (this.comparator.compare(max, right = this.internalList.get(i)) < 0) {
+                result = i;
+                max = right;
+            }
         }
         return result;
     }
