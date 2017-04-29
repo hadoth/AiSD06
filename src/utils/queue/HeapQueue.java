@@ -40,7 +40,7 @@ public class HeapQueue<T> implements PriorityQueue<T> {
 
     @Override
     public T peek() {
-        return null;
+        return this.internalList.get(this.size() - 1);
     }
 
     private void swim(int indexToSwim){
