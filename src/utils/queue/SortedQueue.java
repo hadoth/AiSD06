@@ -1,6 +1,10 @@
 package utils.queue;
 
-import java.util.*;
+
+import utils.comparator.Comparator;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by Karol Pokomeda on 2017-04-29.
@@ -27,7 +31,7 @@ public class SortedQueue<T> implements PriorityQueue<T> {
     @Override
     public boolean add(T t) {
         int i = 0;
-        while (i < this.size() && this.comparator.compare(t, this.internalList.get(i)) >=0) i++;
+        while (i < this.size() && this.comparator.compare(t, this.internalList.get(i)) >0) i++;
         internalList.add(i, t);
         return true;
     }
