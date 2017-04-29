@@ -35,7 +35,11 @@ public class HeapQueue<T> implements PriorityQueue<T> {
 
     @Override
     public T remove() {
-        return null;
+        swap(this.internalList, 0, this.size() - 1);
+        T result = this.internalList.get(0);
+        this.internalList.remove(0);
+        this.sink(0);
+        return result;
     }
 
     @Override
