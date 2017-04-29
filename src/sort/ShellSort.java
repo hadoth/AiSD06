@@ -15,7 +15,7 @@ public class ShellSort<T> implements ListSorter<T> {
 
     public ShellSort(Comparator<T> comparator){
         this.comparator = comparator;
-        this.strategy = Strategy.DEFAULT;
+        this.strategy = Strategy.PRATT;
     }
 
     public ShellSort(Comparator<T> comparator, Strategy strategy){
