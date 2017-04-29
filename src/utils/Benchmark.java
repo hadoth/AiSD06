@@ -1,11 +1,13 @@
 package utils;
 
 import sort.ListSorter;
+import sort.QueueSort;
 import utils.comparator.Comparator;
 import utils.comparator.ObservableComparator;
 import utils.list.ObservableList;
 import utils.observer.Observable;
 import utils.observer.Observer;
+import utils.queue.PriorityQueue;
 
 import java.io.File;
 import java.io.FileReader;
@@ -23,7 +25,6 @@ public class Benchmark implements Observer {
     private int changeCounter;
     private int changeMilCounter;
     private String sorterName;
-    private String dataName;
 
     public Benchmark(){
         this.clear();
@@ -32,13 +33,11 @@ public class Benchmark implements Observer {
     public<T> void evaluate(ListSorter<T> sorter, Comparator<T> comparator, List<T> list){
         ObservableList<T> internalList = new ObservableList<>(list);
         this.evaluateInternally(sorter, comparator, internalList);
-        this.dataName = "UNDEFINED";
     }
 
     public void evaluate(ListSorter<Integer> sorter, Comparator<Integer> comparator, String filePath){
         ObservableList<Integer> internalList = new ObservableList<>(this.loadList(filePath));
         this.evaluateInternally(sorter, comparator, internalList);
-        this.dataName = filePath.replace(".csv", "");
     }
 
     private <T> void evaluateInternally(ListSorter<T> sorter, Comparator<T> comparator, ObservableList<T> internalList){
@@ -48,6 +47,14 @@ public class Benchmark implements Observer {
         internalComparator.addObserver(this);
         internalList.addObserver(this);
 
+        if (sorter instanceof QueueSort){
+            PriorityQueue<T> queue = ((QueueSort<T>)(sorter)).getPriorityQueue();
+            ObservableList<T> queueList = new ObservableList<T>(new ArrayList<T>());
+            queueList.addObserver(this);
+            queue.setInternalList(queueList);
+            queue.setComparator(internalComparator);
+            ((QueueSort<T>)(sorter)).setPriorityQueue(queue);
+        }
         sorter.setComparator(internalComparator);
         sorter.sort(internalList);
         Benchmark.assertSorted(internalList, comparator);
@@ -59,7 +66,6 @@ public class Benchmark implements Observer {
         this.compareMilCounter = 0;
         this.changeCounter = 0;
         this.changeMilCounter = 0;
-        this.dataName = null;
         this.sorterName = null;
     }
 
@@ -82,10 +88,42 @@ public class Benchmark implements Observer {
     }
 
     public String report(){
-        return "Data description:\t\t" + this.dataName +
-                "\nSorter name:\t\t\t" + this.sorterName +
-                "\nnumber of swaps:\t\t" + this.concatenate(this.changeMilCounter, this.changeCounter/2)+
-                "\nnumber of comparisons:\t" + this.concatenate(this.compareMilCounter, this.compareCounter);
+        StringBuilder builder = new StringBuilder();
+        builder.append("|   ");
+        builder.append(this.sorterName);
+        while (builder.length() < 40) builder.append(" ");
+        builder.append("|   ");
+        builder.append(this.concatenate(this.changeMilCounter, this.changeCounter/2));
+        while (builder.length() < 60) builder.append(" ");
+        builder.append("|   ");
+        builder.append(this.concatenate(this.compareMilCounter, this.compareCounter));
+        while (builder.length() < 80) builder.append(" ");
+        builder.append("|");
+        return builder.toString();
+    }
+
+    public static String reportTemplate(){
+        StringBuilder builder1 = new StringBuilder();
+        builder1.append("| NAME:");
+        while (builder1.length() < 40) builder1.append(" ");
+        builder1.append("| NO OF SWAPS:");
+        while (builder1.length() < 60) builder1.append(" ");
+        builder1.append("| NO OF COMPARISONS");
+        while (builder1.length() < 80) builder1.append(" ");
+        builder1.append("|\n");
+
+        StringBuilder builder2 = new StringBuilder();
+        builder2.append("|");
+        while (builder2.length() < 40) builder2.append("-");
+        builder2.append("|");
+        while (builder2.length() < 60) builder2.append("-");
+        builder2.append("|");
+        while (builder2.length() < 80) builder2.append("-");
+        builder2.append("|");
+
+        builder1.append(builder2);
+
+        return builder1.toString();
     }
 
     private String concatenate(int milPart, int rest){

@@ -2,10 +2,8 @@ package internaltest;
 
 import sort.ListSorter;
 import sort.MergeSort;
-import sort.ShellSortBubble;
 import utils.Benchmark;
 import utils.comparator.NaturalComparator;
-import utils.queue.HeapQueue;
 import utils.strategy.Strategy;
 
 import java.util.ArrayList;
