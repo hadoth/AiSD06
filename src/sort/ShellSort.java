@@ -53,7 +53,7 @@ public class ShellSort<T> implements ListSorter<T> {
 
     @Override
     public String getName() {
-        return "Shell Sort";
+        return "Shell Sort (" + this.strategy.getName() + ")";
     }
 
     private static <T> void swap(List<T> list, int left, int right){
