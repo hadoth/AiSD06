@@ -1,7 +1,8 @@
 package utils.queue;
 
+import utils.comparator.Comparator;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -29,15 +30,15 @@ public class HeapQueue<T> implements PriorityQueue<T> {
     @Override
     public boolean add(T t) {
         boolean result =  this.internalList.add(t);
-        this.swim(this.internalList.size());
+        this.swim(this.size()-1);
         return result;
     }
 
     @Override
     public T remove() {
         swap(this.internalList, 0, this.size() - 1);
-        T result = this.internalList.get(0);
-        this.internalList.remove(0);
+        T result = this.internalList.get(this.size() - 1);
+        this.internalList.remove(this.size() - 1);
         this.sink(0);
         return result;
     }
@@ -48,15 +49,25 @@ public class HeapQueue<T> implements PriorityQueue<T> {
     }
 
     private void swim(int indexToSwim){
+        if (indexToSwim <= 0) return;
         int parentIndex = (indexToSwim-1)/2;
-        if (parentIndex < 0) return;
-        if (this.comparator.compare(this.internalList.get(indexToSwim), this.internalList.get(parentIndex)) > 0)
+        if (this.comparator.compare(this.internalList.get(indexToSwim), this.internalList.get(parentIndex)) > 0){
             swap(this.internalList, indexToSwim, parentIndex);
-        this.swim(parentIndex);
+            this.swim(parentIndex);
+        }
     }
 
     private void sink(int indexToSink){
-
+        int childIndex = 2 * indexToSink + 1;
+        if (childIndex >= this.size()) return;
+        if (
+            childIndex + 1 < this.size() &&
+            this.comparator.compare(this.internalList.get(childIndex), this.internalList.get(childIndex+1)) < 0
+        ) childIndex++;
+        if (this.comparator.compare(this.internalList.get(indexToSink), this.internalList.get(childIndex)) < 0) {
+            swap(internalList, indexToSink, childIndex);
+            this.sink(childIndex);
+        }
     }
 
     private static <T> void swap(List<T> list, int left, int right){
