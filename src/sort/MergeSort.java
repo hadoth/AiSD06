@@ -50,27 +50,19 @@ public class MergeSort<T> implements ListSorter<T> {
     }
 
     private List<T> merge(List<T> leftList, List<T> rightList) {
-        List<T> result = this.emptyCopy(leftList); //TODO: fix this method to present correct number of swaps;
-        int i = 0;
-        int j = 0;
-        T leftCompared;
-        T rightCompared;
-        while (i < leftList.size() && j < rightList.size()){
-            if (this.comparator.compare(leftCompared = leftList.get(i), rightCompared = rightList.get(j)) <= 0){
-                result.add(leftCompared);
-                i++;
+        List<T> result = this.emptyCopy(leftList);
+        while (!leftList.isEmpty() && !rightList.isEmpty()){
+            if (this.comparator.compare(leftList.get(0), rightList.get(0)) <= 0){
+                result.add(leftList.remove(0));
             } else {
-                result.add(rightCompared);
-                j++;
+                result.add(rightList.remove(0));
             }
         }
-        while(i < leftList.size()){
-            result.add(leftList.get(i));
-            i++;
+        while(!leftList.isEmpty()){
+            result.add(leftList.remove(0));
         }
-        while(j < rightList.size()){
-            result.add(rightList.get(j));
-            j++;
+        while(!rightList.isEmpty()){
+            result.add(rightList.remove(0));
         }
         return result;
     }
