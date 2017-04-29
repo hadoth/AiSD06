@@ -45,4 +45,9 @@ public class SortedQueue<T> implements PriorityQueue<T> {
     public T peek() {
         return this.internalList.get(this.internalList.size()-1);
     }
+
+    @Override
+    public void setComparator(Comparator<T> comparator) {
+        this.comparator = comparator;
+    }
 }

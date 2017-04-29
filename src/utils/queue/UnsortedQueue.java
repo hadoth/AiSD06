@@ -54,4 +54,9 @@ public class UnsortedQueue<T> implements PriorityQueue<T> {
         }
         return result;
     }
+
+    @Override
+    public void setComparator(Comparator<T> comparator) {
+        this.comparator = comparator;
+    }
 }

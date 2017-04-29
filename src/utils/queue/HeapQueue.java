@@ -48,6 +48,11 @@ public class HeapQueue<T> implements PriorityQueue<T> {
         return this.internalList.get(this.size() - 1);
     }
 
+    @Override
+    public void setComparator(Comparator<T> comparator) {
+        this.comparator = comparator;
+    }
+
     private void swim(int indexToSwim){
         if (indexToSwim <= 0) return;
         int parentIndex = (indexToSwim-1)/2;
