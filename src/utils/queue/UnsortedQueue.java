@@ -59,4 +59,10 @@ public class UnsortedQueue<T> implements PriorityQueue<T> {
     public void setComparator(Comparator<T> comparator) {
         this.comparator = comparator;
     }
+
+    @Override
+    public void setInternalList(List<T> internalList) {
+        this.internalList = internalList;
+        this.internalList.clear();
+    }
 }

@@ -5,6 +5,7 @@ import utils.observer.Observable;
 import utils.observer.Observer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Karol on 2017-04-29.
@@ -46,6 +47,11 @@ public class ObservablePriorityQueue<T> implements PriorityQueue<T>, Observable 
     @Override
     public void setComparator(Comparator<T> comparator) {
         this.internalQueue.setComparator(comparator);
+    }
+
+    @Override
+    public void setInternalList(List<T> internalList) {
+        this.internalQueue.setInternalList(internalList);
     }
 
     @Override
