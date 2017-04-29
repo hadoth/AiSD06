@@ -1,9 +1,9 @@
 package sort;
 
 import utils.comparator.Comparator;
+import utils.queue.PriorityQueue;
 
 import java.util.List;
-import java.util.PriorityQueue;
 
 /**
  * Created by Karol on 2017-04-29.
@@ -27,6 +27,10 @@ public class QueueSort<T> implements ListSorter<T> {
     @Override
     public void setComparator(Comparator<T> comparator) {
         this.comparator = comparator;
+    }
+
+    public PriorityQueue<T> getPriorityQueue(){
+        return this.priorityQueue;
     }
 
     public void setPriorityQueue(PriorityQueue<T> priorityQueue) {
