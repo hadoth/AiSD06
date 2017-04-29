@@ -28,8 +28,9 @@ public class HeapQueue<T> implements PriorityQueue<T> {
 
     @Override
     public boolean add(T t) {
-        return this.internalList.add(t);
+        boolean result =  this.internalList.add(t);
         this.swim(this.internalList.size());
+        return result;
     }
 
     @Override
@@ -40,5 +41,23 @@ public class HeapQueue<T> implements PriorityQueue<T> {
     @Override
     public T peek() {
         return null;
+    }
+
+    private void swim(int indexToSwim){
+        int parentIndex = (indexToSwim-1)/2;
+        if (parentIndex < 0) return;
+        if (this.comparator.compare(this.internalList.get(indexToSwim), this.internalList.get(parentIndex)) > 0)
+            swap(this.internalList, indexToSwim, parentIndex);
+        this.swim(parentIndex);
+    }
+
+    private void sink(int indexToSink){
+
+    }
+
+    private static <T> void swap(List<T> list, int left, int right){
+        T leftElem = list.get(left);
+        list.set(left, list.get(right));
+        list.set(right, leftElem);
     }
 }
