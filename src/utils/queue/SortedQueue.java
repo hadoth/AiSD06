@@ -16,26 +16,29 @@ public class SortedQueue<T> implements PriorityQueue<T> {
 
     @Override
     public int size() {
-        return 0;
+        return internalList.size();
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return this.internalList.isEmpty();
     }
 
     @Override
     public boolean add(T t) {
-        return false;
+        int i = 0;
+        while (i < this.size() && this.comparator.compare(t, this.internalList.get(i)) >=0) i++;
+        internalList.add(i, t);
+        return true;
     }
 
     @Override
     public T remove() {
-        return null;
+        return this.internalList.remove(this.internalList.size()-1);
     }
 
     @Override
     public T peek() {
-        return null;
+        return this.internalList.get(this.internalList.size()-1);
     }
 }
